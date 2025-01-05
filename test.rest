@@ -1,0 +1,7 @@
+### chat api
+
+GET http://localhost:6688/api/chat
+
+### message api
+
+GET http://localhost:6688/api/message
