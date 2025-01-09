@@ -1,7 +1,24 @@
 ### chat api
 
-GET http://localhost:6688/api/chat
+GET http://localhost:6688/
 
-### message api
+### api signup
 
-GET http://localhost:6688/api/message
+POST http://localhost:6688/api/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test",
+    "fullname": "test"
+}
+
+### api signin
+
+POST http://localhost:6688/api/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "test"
+}

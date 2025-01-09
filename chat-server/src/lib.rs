@@ -1,13 +1,15 @@
 mod config;
+mod error;
 mod handlers;
-use handlers::*;
-use std::{ops::Deref, sync::Arc};
-
+mod models;
+mod utils;
 use axum::{
-    routing::{get, patch, post},
+    routing::{get, post},
     Router,
 };
 pub use config::AppConfig;
+use handlers::*;
+use std::{ops::Deref, sync::Arc};
 
 #[derive(Clone)]
 pub(crate) struct AppState {
@@ -22,20 +24,7 @@ pub fn get_router(config: AppConfig) -> Router {
     let state = AppState::new(config);
     let api = Router::new()
         .route("/signin", post(signin_handler))
-        .route("/signup", post(signup_handler))
-        .route("/chat", get(list_chat_handler).post(create_chat_handler))
-        .route(
-            "/chat:id",
-            patch(update_chat_handler).delete(delete_chat_handler),
-        )
-        .route(
-            "/message",
-            get(list_message_handler).post(create_message_handler),
-        )
-        .route(
-            "/message:id",
-            patch(update_message_handler).delete(delete_message_handler),
-        );
+        .route("/signup", post(signup_handler));
     Router::new()
         .route("/", get(index_handler))
         .nest("/api", api)
